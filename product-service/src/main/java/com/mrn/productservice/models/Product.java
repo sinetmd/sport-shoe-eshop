@@ -31,10 +31,15 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Image> imagesUrl;
 
+    // I think this should be a floating point
+    // there is size that is 33.5, 42.5 that I wear always
+    // TODO: Come back to here!
     @Min(1)
-    @Max(57)
-    private Integer size;
+    @Max(56)
+    private Float size;
 
+    // Shoes can have unisex
+    // both for male and female
     @Enumerated(EnumType.STRING)
     private Set<Gender> genders;
 
@@ -44,8 +49,8 @@ public class Product {
     private BigDecimal price;
 
     @CreationTimestamp
-    @Column(updatable = false)
-    private LocalDateTime createdAt;
+    @Column(updatable = false, nullable = false)
+    private LocalDateTime createdAt = LocalDateTime.now();
 
     @UpdateTimestamp
     private LocalDateTime updatedAt;

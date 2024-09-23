@@ -23,3 +23,22 @@ tasks:
   format:
     cmds:
       - "{{.MVNW}} spotless:apply"
+
+  #  start infrastructure -> things like postgresql databases
+  start_infra:
+    cmds:
+      - "docker compose -f {{.INFRA_DC_FILE}} up -d"
+
+  stop_infra:
+    cmds:
+      - "docker compose -f {{.INFRA_DC_FILE}} stop"
+      - "docker compose -f {{.INFRA_DC_FILE}} rm -f"
+
+
+  ################################################
+
+  sleep:
+    vars:
+      DURATION: "{{default 5 .DURATION}}"
+    cmds:
+      - "{{.SLEEP_CMD}} {{.DURATION}}"
