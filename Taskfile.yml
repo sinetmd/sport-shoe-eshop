@@ -1,0 +1,25 @@
+version: '3'
+
+vars:
+  GOOS: "{{default OS .GOOS}}"
+  MVNW: '{{if eq .GOOS "windows"}}mvnw.cmd{{else}}./mvnw{{end}}'
+  DC_DIR: "deployment/docker-compose"
+  INFRA_DC_FILE: "{{.DC_DIR}}/infra.yaml"
+  APPS_DC_FILE: "{{.DC_DIR}}/apps.yaml"
+  MONITORING_DC_FILE: "{{.DC_DIR}}/monitoring.yaml"
+  SLEEP_CMD: '{{if eq .GOOS "windows"}}timeout{{else}}sleep{{end}}'
+  K8S_PATH: "deployment/k8s"
+  DOCKER_USER: "sinetztar"
+
+tasks:
+  default:
+    cmds:
+      - task: test
+  test:
+    deps: [ format ]
+    cmds:
+      - "{{.MVNW}} clean verify"
+
+  format:
+    cmds:
+      - "{{.MVNW}} spotless:apply"
