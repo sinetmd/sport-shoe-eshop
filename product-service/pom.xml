@@ -62,7 +62,7 @@
 
         <!--
         creates metadata from classes and auto-complete
-        for application.properties or application.yml files
+        for application.yaml or application.yaml files
         -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
