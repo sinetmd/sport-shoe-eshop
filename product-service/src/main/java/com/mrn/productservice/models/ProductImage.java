@@ -2,25 +2,26 @@ package com.mrn.productservice.models;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
-@Table(name = "images")
+@Table(name = "product_images")
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
-public class Image {
+@Data
+public class ProductImage {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @Column(name = "image_id")
+    private Long imageId;
 
-    @Column(nullable = false)
-    private String imageUrl;
+    private String url;
+
+    private Boolean isMain;
 
     @ManyToOne
-    @JoinColumn(name = "product_id")
+    @JoinColumn(name = "product_id", nullable = false)
     private Product product;
+
 }

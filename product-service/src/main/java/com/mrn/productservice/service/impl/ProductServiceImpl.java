@@ -4,11 +4,13 @@ import com.mrn.productservice.models.Product;
 import com.mrn.productservice.repository.ProductRepository;
 import com.mrn.productservice.service.ProductService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@Transactional
 public class ProductServiceImpl implements ProductService {
 
     private final ProductRepository productRepository;
@@ -22,13 +24,20 @@ public class ProductServiceImpl implements ProductService {
         Product newProduct = new Product();
         newProduct.setName(product.getName());
         newProduct.setDescription(product.getDescription());
-        newProduct.setImagesUrl(product.getImagesUrl());
         newProduct.setSize(product.getSize());
+        newProduct.setCategory(product.getCategory());
         newProduct.setPrice(product.getPrice());
-        newProduct.setCreatedAt(LocalDateTime.now());
-        newProduct.setUpdatedAt(null);
+        newProduct.setCreatedDate(LocalDateTime.now());
+        newProduct.setUpdatedDate(null);
 
         return productRepository.save(newProduct);
+    }
+
+    @Override
+    public Product findProduct(String name) {
+        return productRepository.findProductByName(name).orElseThrow(
+                () -> new RuntimeException("Product not found!")
+        );
     }
 
     @Override
@@ -43,6 +52,6 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getProducts() {
-        return List.of();
+        return productRepository.findAll();
     }
 }

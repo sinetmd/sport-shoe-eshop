@@ -1,25 +1,19 @@
-INSERT INTO products(id, name, description, images_url, size, genders, price, created_at, updated_at)
-VALUES (1, 'Nike Air Max 270', 'Stylish and comfortable shoes.',
-        ARRAY ['https://example.com/nike-air-max-270-1.jpg', 'https://example.com/nike-air-max-270-2.jpg'],
-        10, ARRAY ['male'], 150.00, CURRENT_TIMESTAMP, null),
-       (2, 'Adidas Ultraboost 21', 'High-performance running shoes.',
-        ARRAY ['https://example.com/adidas-ultraboost-21-1.jpg', 'https://example.com/adidas-ultraboost-21-2.jpg'],
-        8, ARRAY ['female'], 180.00, CURRENT_TIMESTAMP, null),
-       (3, 'Puma RS-X', 'Bold retro-inspired sneakers.',
-        ARRAY ['https://example.com/puma-rs-x-1.jpg', 'https://example.com/puma-rs-x-2.jpg'],
-        9, ARRAY ['male', 'female'], 110.00, CURRENT_TIMESTAMP, null),
-       (4, 'Converse All Star', 'Classic unisex sneakers.',
-        ARRAY ['https://example.com/converse-all-star-1.jpg', 'https://example.com/converse-all-star-2.jpg'],
-        9, ARRAY ['male', 'female'], 60.00, CURRENT_TIMESTAMP, null);
+INSERT INTO products (name, category, description, brand, size, color, price, stock)
+VALUES ('Nike Air Zoom Pegasus 38', 'UNISEX', 'High-performance unisex running shoes.', 'Nike', 42, 'Black', 120.00,
+        50),
+       ('Adidas Ultraboost 21', 'MALE', 'Mens lightweight running shoes with superior cushioning.', 'Adidas', 43, 'White', 180.00, 40),
+('Puma RS-X3', 'FEMALE', 'Womens trendy sports shoes with a bold color palette.', 'Puma', 39, 'Pink', 100.00, 30),
+       ('Converse Chuck Taylor All Star', 'UNISEX', 'Classic unisex sneakers.', 'Converse', 44, 'Black', 60.00, 100),
+       ('New Balance 574', 'KIDS', 'Durable sneakers for children.', 'New Balance', 35, 'Blue', 80.00, 25);
 
-INSERT INTO images(id, image_url, product_id)
-VALUES (1, 'https://example.com/nike-air-max-270-1.jpg', 1),
-       (2, 'https://example.com/nike-air-max-270-2.jpg', 1),
-       (3, 'https://example.com/adidas-ultraboost-21-1.jpg', 2),
-       (4, 'https://example.com/adidas-ultraboost-21-2.jpg', 2),
-       (5, 'https://example.com/puma-rs-x-1.jpg', 3),
-       (6, 'https://example.com/puma-rs-x-2.jpg', 3),
-       (7, 'https://example.com/converse-all-star-1.jpg', 4),
-       (8, 'https://example.com/converse-all-star-2.jpg', 4);
-
-
+INSERT INTO product_images (image_url, is_main, product_id)
+VALUES ('https://example.com/images/nike-air-zoom-pegasus-38-front.jpg', TRUE, 1),
+       ('https://example.com/images/nike-air-zoom-pegasus-38-side.jpg', FALSE, 1),
+       ('https://example.com/images/nike-air-zoom-pegasus-38-back.jpg', FALSE, 1),
+       ('https://example.com/images/adidas-ultraboost-21-front.jpg', TRUE, 2),
+       ('https://example.com/images/adidas-ultraboost-21-side.jpg', FALSE, 2),
+       ('https://example.com/images/adidas-ultraboost-21-back.jpg', FALSE, 2),
+       ('https://example.com/images/converse-chuck-taylor-front.jpg', TRUE, 4),
+       ('https://example.com/images/converse-chuck-taylor-side.jpg', FALSE, 4),
+       ('https://example.com/images/new-balance-574-front.jpg', TRUE, 5),
+       ('https://example.com/images/new-balance-574-side.jpg', FALSE, 5);
