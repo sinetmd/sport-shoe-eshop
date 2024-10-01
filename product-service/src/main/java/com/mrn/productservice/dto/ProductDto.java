@@ -22,4 +22,5 @@ public class ProductDto {
     Integer stock;
     LocalDateTime createdDate;
     LocalDateTime updatedDate;
-};
+}
+;

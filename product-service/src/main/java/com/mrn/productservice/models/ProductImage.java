@@ -2,11 +2,10 @@ package com.mrn.productservice.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "product_images")

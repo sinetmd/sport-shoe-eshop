@@ -4,12 +4,11 @@ import com.mrn.productservice.models.Category;
 import com.mrn.productservice.models.Product;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
-
-import java.util.List;
-import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findByNameContainingIgnoreCase(String name);
@@ -17,10 +16,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p WHERE p.productCode = :code")
     Optional<Product> findProductByProductCode(@Param("code") String productCode);
 
-    @Query("SELECT p FROM Product p WHERE (:brand IS NULL OR p.brand ILIKE :brand) " +
-            "AND (:category IS NULL OR p.category = :category) " +
-            "AND (:size IS NULL OR p.size = :size)"
-    )
+    @Query("SELECT p FROM Product p WHERE (:brand IS NULL OR p.brand ILIKE :brand) "
+            + "AND (:category IS NULL OR p.category = :category) "
+            + "AND (:size IS NULL OR p.size = :size)")
     List<Product> findProducts(String brand, Category category, Float size);
 
     @Query("SELECT p FROM Product p WHERE p.category = :category OR p.category = 'UNISEX'")

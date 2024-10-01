@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/api/v1/products", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -39,22 +40,27 @@ public class ProductController {
     }
 
     @GetMapping(path = "/search")
-    public ResponseEntity<List<ProductDto>> getProducts(@RequestParam(required = false) String brand,
-                                                        @RequestParam(required = false) Category category,
-                                                        @RequestParam(required = false) Float size) {
+    public ResponseEntity<List<ProductDto>> getProducts(
+            @RequestParam(required = false) String brand,
+            @RequestParam(required = false) Category category,
+            @RequestParam(required = false) Float size) {
         List<ProductDto> productsDto = productService.getProducts(brand, category, size);
 
         return new ResponseEntity<>(productsDto, HttpStatus.OK);
     }
 
-    //    @GetMapping("/{code}")
-    //    public ResponseEntity<ProductDTO> getProductByCode(@PathVariable("code") String code) {
-    //        return null;
-    //    }
+    @GetMapping("/code/{productCode}")
+    public ResponseEntity<ProductDto> getProductByCode(@PathVariable String productCode) {
+        Optional<ProductDto> productDto = productService.getProductByProductCode(productCode);
+
+        return productDto
+                .map(dto -> new ResponseEntity<>(dto, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 
     @PutMapping("/update/{productId}")
-    public ResponseEntity<ProductDto> updateProduct(@PathVariable Long productId,
-                                                    @Valid @RequestBody ProductDto productDto) {
+    public ResponseEntity<ProductDto> updateProduct(
+            @PathVariable Long productId, @Valid @RequestBody ProductDto productDto) {
 
         Product product = productService.updateProduct(productId, productDto);
         return ResponseEntity.ok(productMapper.toProductDto(product));

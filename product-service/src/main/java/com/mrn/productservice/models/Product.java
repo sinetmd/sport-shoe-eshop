@@ -2,12 +2,10 @@ package com.mrn.productservice.models;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
-
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "products")
@@ -43,8 +41,7 @@ public class Product {
 
     private String color;
 
-    @NotNull(message = "Product price is required")
-    @DecimalMin("0.1")
+    @NotNull(message = "Product price is required") @DecimalMin("0.1")
     @Column(nullable = false)
     private BigDecimal price;
 
