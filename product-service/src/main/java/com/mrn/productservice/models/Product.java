@@ -4,8 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -19,6 +18,10 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
     private Long productId;
+
+    @NotEmpty(message = "Product should have a code")
+    @Column(nullable = false, unique = true)
+    private String productCode;
 
     @NotEmpty(message = "Product name is required")
     @Column(nullable = false)
@@ -38,6 +41,8 @@ public class Product {
     @Column(nullable = false)
     private String description;
 
+    private String color;
+
     @NotNull(message = "Product price is required")
     @DecimalMin("0.1")
     @Column(nullable = false)
@@ -46,10 +51,20 @@ public class Product {
     @Min(0)
     private int stock;
 
-    @CreationTimestamp
     @Column(updatable = false)
     private LocalDateTime createdDate;
 
-    @UpdateTimestamp
     private LocalDateTime updatedDate;
+
+    // onCreate is going to be automatically set when a product is created
+    @PrePersist
+    public void onCreate() {
+        this.createdDate = LocalDateTime.now();
+    }
+
+    // onUpdate will be automatically updated when the product is modified.
+    @PreUpdate
+    public void onUpdate() {
+        this.updatedDate = LocalDateTime.now();
+    }
 }

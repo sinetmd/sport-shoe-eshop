@@ -16,3 +16,18 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
+        # not recommended because it loads everything without proper optimization from the logging framework
+        # format_sql: true
+
+logging:
+  level:
+    org:
+      hibernate:
+        SQL: DEBUG
+        type:
+          descriptor:
+            sql:
+              BasicBinder: TRACE
+        orm:
+          jdbc:
+            bind: TRACE

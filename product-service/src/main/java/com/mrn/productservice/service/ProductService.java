@@ -1,18 +1,22 @@
 package com.mrn.productservice.service;
 
+import com.mrn.productservice.dto.ProductDto;
+import com.mrn.productservice.models.Category;
 import com.mrn.productservice.models.Product;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
 public interface ProductService {
-    Product createProduct(Product product);
+    void createProduct(ProductDto productDto);
 
-    Product findProduct(String name);
+    List<ProductDto> getProductsByName(String name);
 
-    Product updateProduct(Long productId);
+    List<ProductDto> getProducts(String brand, Category category, Float size);
+
+    Product updateProduct(Long productId, ProductDto productDTO);
 
     void deleteProduct(Long productId);
 
-    List<Product> getProducts();
-
+    List<ProductDto> getProducts();
 }
